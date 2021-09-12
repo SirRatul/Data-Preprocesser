@@ -1,0 +1,18 @@
+SET VERIFY OFF;
+SET SERVEROUTPUT ON;
+SET LINESIZE 500;
+
+CREATE OR REPLACE PACKAGE mypack AS
+	PROCEDURE lowercase(A IN OUT VARCHAR2);
+END mypack;
+/
+
+CREATE OR REPLACE PACKAGE BODY mypack AS
+	PROCEDURE lowercase(A IN OUT VARCHAR2)
+	IS
+	BEGIN
+		SELECT LOWER(A) INTO A FROM dual;
+	END lowercase;
+END mypack;
+/
+@"C:\Users\samsu\OneDrive\Desktop\Project\Site\4.sql"

@@ -1,0 +1,28 @@
+SET VERIFY OFF;
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE removeNumber(A IN VARCHAR2, B OUT VARCHAR2) 
+IS
+	C VARCHAR2(256);
+	D NUMBER;
+	E VARCHAR2(256);
+	NUM NUMBER;
+BEGIN
+	SELECT REGEXP_REPLACE(A, '[0-9]', '') INTO B FROM dual;
+	NUM := 1;
+	E := ' ';
+	LOOP
+		SELECT REGEXP_SUBSTR(A , '[^ ]+' , 1 , NUM) INTO C FROM dual;
+		IF C IS NULL THEN 
+			EXIT;
+		END IF;
+		SELECT LENGTH(TRIM(TRANSLATE(C, '0123456789',' '))) INTO D FROM dual;
+		IF D IS NOT NULL THEN	
+			E := E || ' ' || C;
+		END IF;
+		NUM := NUM + 1;
+	END LOOP;
+	B := E;
+END removeNumber;
+/
+@"C:\Users\samsu\OneDrive\Desktop\Project\Site\5.sql"
